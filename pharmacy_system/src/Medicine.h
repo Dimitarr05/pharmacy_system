@@ -36,6 +36,9 @@ public:
     void setBatchNumber(std::string batchNumber);
     void setExpirationDate(std::string expirationDate);
 
+    bool isValidDate() const;
+    bool isExpired() const; 
+
     virtual double calculateFinalPrice() const;
 
     virtual ~Medicine() = default;
