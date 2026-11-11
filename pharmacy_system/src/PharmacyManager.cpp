@@ -15,3 +15,23 @@ void PharmacyManager::displayMedicines() const {
         std::cout << "-------" << std::endl;
     }
 }
+
+void PharmacyManager::searchMedicine(std::string name) const {
+    bool found = false;
+
+    for (int i = 0; i < medicines.size(); i++) {
+        if (medicines[i]->getName() == name) {
+            std::cout << "Medicine found!" << std::endl;
+            std::cout << "Name: " << medicines[i]->getName() << std::endl;
+            std::cout << "Price: " << medicines[i]->calculateFinalPrice() << " EUR" << std::endl;
+            std::cout << "Quantity: " << medicines[i]->getQuantity() << std::endl;
+
+            found = true;
+        }
+    }
+
+    if (!found) {
+        std::cout << "Medicine not found!" << std::endl;
+    }
+}
+

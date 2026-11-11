@@ -11,6 +11,7 @@ private:
 public:
     void addMedicine(Medicine* medicine);
     void displayMedicines() const;
+    void searchMedicine(std::string name) const;
 };
 
 #endif
