@@ -1,4 +1,3 @@
-
 #include "PrescriptionMedicine.h"
 
 PrescriptionMedicine::PrescriptionMedicine()

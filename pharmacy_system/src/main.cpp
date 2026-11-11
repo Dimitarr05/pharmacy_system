@@ -1,8 +1,13 @@
 #include <iostream>
 #include "Medicine.h"
+#include "OTC_Medicine.h"
+#include "PrescriptionMedicine.h"
+#include "PharmacyManager.h"
 
 int main() {
-    Medicine medicine(
+    PharmacyManager pharmacy;
+
+    OTC_Medicine* medicine1 = new OTC_Medicine(
         "Paracetamol",
         "Sopharma",
         "BATCH001",
@@ -11,14 +16,24 @@ int main() {
         "05-11-2027"
     );
 
-    std::cout << "Medicine: "
-              << medicine.getName() << '\n';
+    PrescriptionMedicine* medicine2 = new PrescriptionMedicine(
+        "Voltaren",
+        "Sopharma",
+        "BATCH002",
+        12.50,
+        50,
+        "10-12-2027",
+        "RX001",
+        "Dr. Ivanov"
+    );
 
-    std::cout << "Price: "
-              << medicine.calculateFinalPrice() << " eur\n";
+    pharmacy.addMedicine(medicine1);
+    pharmacy.addMedicine(medicine2);
 
-    std::cout << "Available quantity: "
-              << medicine.getQuantity() << '\n';
+    pharmacy.displayMedicines();
+
+    delete medicine1;
+    delete medicine2;
 
     return 0;
 }
