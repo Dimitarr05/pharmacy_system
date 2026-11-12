@@ -35,3 +35,19 @@ void PharmacyManager::searchMedicine(std::string name) const {
     }
 }
 
+void PharmacyManager::removeMedicine(std::string name) {
+    for (int i = 0; i < medicines.size(); i++) {
+        if (medicines[i]->getName() == name) {
+            delete medicines[i];
+
+            medicines.erase(medicines.begin() + i);
+
+            std::cout << "Medicine removed successfully!\n" << std::endl;
+            return;
+        }
+    }
+
+    std::cout << "Medicine not found!" << std::endl;
+}
+
+

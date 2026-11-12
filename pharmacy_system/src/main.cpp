@@ -36,6 +36,12 @@ int main() {
 
     pharmacy.searchMedicine("Paracetamol");
 
+    std::cout << "\nRemoving Paracetamol..\n";
+
+    pharmacy.removeMedicine("Paracetamol");
+
+    pharmacy.displayMedicines();
+
     delete medicine1;
     delete medicine2;
 
