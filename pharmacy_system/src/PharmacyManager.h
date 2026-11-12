@@ -9,6 +9,8 @@ private:
     std::vector<Medicine*> medicines;
 
 public:
+    ~PharmacyManager();
+
     void addMedicine(Medicine* medicine);
     void displayMedicines() const;
     void removeMedicine(std::string name);

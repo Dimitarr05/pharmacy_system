@@ -1,6 +1,14 @@
 #include "PharmacyManager.h"
 #include <iostream>
 
+PharmacyManager::~PharmacyManager() {
+    for (int i = 0; i < medicines.size(); i++) {
+        delete medicines[i];
+    }
+
+    medicines.clear();
+}
+
 void PharmacyManager::addMedicine(Medicine* medicine) {
     medicines.push_back(medicine);
 }

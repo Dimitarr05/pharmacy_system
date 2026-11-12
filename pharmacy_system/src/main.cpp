@@ -44,8 +44,5 @@ int main() {
     std::cout << "\nUpdated inventory:\n";
     pharmacy.displayMedicines();
 
-    delete medicine1;
-    delete medicine2;
-
     return 0;
 }
