@@ -2,14 +2,14 @@ Paracetamol
 Sopharma
 BATCH001
 5.5
-20
+5
 05-11-2027
 OTC
 Voltaren
 Sopharma
 BATCH002
 12.5
-18
+12
 10-12-2027
 PRESCRIPTION
 RX001

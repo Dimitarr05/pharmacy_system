@@ -15,5 +15,5 @@ OTC_Medicine::OTC_Medicine(std::string name,
 }
 
 double OTC_Medicine::calculateFinalPrice() const {
-    return getPrice();
+    return getPrice() * 0.95; // 5% discount for OTC medicines
 }

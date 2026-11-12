@@ -24,6 +24,9 @@ public:
 
     void saveMedicines() const;
     void loadMedicines();
+
+    void saveSalesHistory() const;
+    void loadSalesHistory();
 };
 
 #endif

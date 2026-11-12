@@ -8,6 +8,7 @@ int main() {
     PharmacyManager pharmacy;
 
     pharmacy.loadMedicines();
+    pharmacy.loadSalesHistory();
 
     pharmacy.displayMedicines();
 
@@ -27,6 +28,7 @@ int main() {
     pharmacy.sellMedicine("Voltaren", 2, "wrong code");
 
     pharmacy.saveMedicines();
+    pharmacy.saveSalesHistory();
     pharmacy.displayMedicines();
 
     return 0;

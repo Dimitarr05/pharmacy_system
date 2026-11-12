@@ -109,6 +109,7 @@ void PharmacyManager::sellMedicine(std::string name, int quantity, std::string p
             );
 
             Receipt receipt(name, quantity, unitPrice);
+            salesHistory.push_back(receipt);
             receipt.displayReceipt();
 
             return;
@@ -237,3 +238,51 @@ void PharmacyManager::loadMedicines() {
     std::cout << "Medicines loaded successfully!" << std::endl;
 }
 
+void PharmacyManager::saveSalesHistory() const {
+    std::ofstream file("data/sales.txt");
+
+    if (!file.is_open()) {
+        std::cout << "Error opening sales file!" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < salesHistory.size(); i++) {
+        file << salesHistory[i].getMedicineName() << std::endl;
+        file << salesHistory[i].getQuantity() << std::endl;
+        file << salesHistory[i].getUnitPrice() << std::endl;
+    }
+
+    file.close();
+
+    std::cout << "Sales history saved successfully!" << std::endl;
+}
+
+void PharmacyManager::loadSalesHistory() {
+    std::ifstream file("data/sales.txt");
+
+    if (!file.is_open()) {
+        std::cout << "Sales history file not found!" << std::endl;
+        return;
+    }
+
+    salesHistory.clear();
+
+    std::string medicineName;
+    int quantity;
+    double unitPrice;
+
+    while (std::getline(file, medicineName)) {
+        if (!(file >> quantity >> unitPrice)) {
+            break;
+        }
+
+        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        Receipt receipt(medicineName, quantity, unitPrice);
+        salesHistory.push_back(receipt);
+    }
+
+    file.close();
+
+    std::cout << "Sales history loaded successfully!" << std::endl;
+}
