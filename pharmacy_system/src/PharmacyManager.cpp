@@ -1,5 +1,15 @@
 #include "PharmacyManager.h"
+#include "PrescriptionMedicine.h"
 #include <iostream>
+
+PharmacyManager::PharmacyManager() {
+}
+
+PharmacyManager::PharmacyManager(Medicine* medicine) {
+    if (medicine != nullptr) {
+        medicines.push_back(medicine);
+    }
+}
 
 PharmacyManager::~PharmacyManager() {
     for (int i = 0; i < medicines.size(); i++) {
@@ -10,7 +20,9 @@ PharmacyManager::~PharmacyManager() {
 }
 
 void PharmacyManager::addMedicine(Medicine* medicine) {
-    medicines.push_back(medicine);
+    if (medicine != nullptr) {
+        medicines.push_back(medicine);
+    }
 }
 
 void PharmacyManager::displayMedicines() const {
@@ -58,8 +70,7 @@ void PharmacyManager::removeMedicine(std::string name) {
     std::cout << "Medicine not found!" << std::endl;
 }
 
-
-void PharmacyManager::sellMedicine(std::string name, int quantity) {
+void PharmacyManager::sellMedicine(std::string name, int quantity, std::string prescriptionCode) {
     for (int i = 0; i < medicines.size(); i++) {
         if (medicines[i]->getName() == name) {
 
@@ -78,17 +89,24 @@ void PharmacyManager::sellMedicine(std::string name, int quantity) {
                 return;
             }
 
+            PrescriptionMedicine* prescriptionMedicine =
+                dynamic_cast<PrescriptionMedicine*>(medicines[i]);
+
+            if (prescriptionMedicine != nullptr) {
+                if (prescriptionCode != prescriptionMedicine->getPrescriptionCode()) {
+                    std::cout << "Invalid prescription code!" << std::endl;
+                    return;
+                }
+            }
+
+            double unitPrice = medicines[i]->calculateFinalPrice();
+
             medicines[i]->setQuantity(
                 medicines[i]->getQuantity() - quantity
             );
 
-            double totalPrice =
-                medicines[i]->calculateFinalPrice() * quantity;
-
-            std::cout << "Sale completed successfully!" << std::endl;
-            std::cout << "Medicine: " << name << std::endl;
-            std::cout << "Quantity sold: " << quantity << std::endl;
-            std::cout << "Total price: " << totalPrice << " EUR" << std::endl;
+            Receipt receipt(name, quantity, unitPrice);
+            receipt.displayReceipt();
 
             return;
         }
@@ -96,4 +114,3 @@ void PharmacyManager::sellMedicine(std::string name, int quantity) {
 
     std::cout << "Medicine not found!" << std::endl;
 }
-

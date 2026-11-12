@@ -35,14 +35,17 @@ int main() {
     std::cout << "\nSearching for Paracetamol:\n";
     pharmacy.searchMedicine("Paracetamol");
 
-    std::cout << "\nRemoving Paracetamol..\n";
-    pharmacy.removeMedicine("Paracetamol");
-    pharmacy.displayMedicines();
+    // std::cout << "\nRemoving Paracetamol..\n";
+    // pharmacy.removeMedicine("Paracetamol");
+    // pharmacy.displayMedicines();
 
-    std::cout << "\nSelling Paracetamol:\n";
+    // std::cout << "\nSelling Paracetamol:\n";
+    // pharmacy.sellMedicine("Paracetamol", 5);
+    // std::cout << "\nUpdated inventory:\n";
+    // pharmacy.displayMedicines();
     pharmacy.sellMedicine("Paracetamol", 5);
-    std::cout << "\nUpdated inventory:\n";
-    pharmacy.displayMedicines();
+    pharmacy.sellMedicine("Voltaren", 2, "RX001");
+    pharmacy.sellMedicine("Voltaren", 2, "wrong code");
 
     return 0;
 }
