@@ -2,6 +2,7 @@
 #define MEDICINE_H
 
 #include <string>
+#include <iostream>
 
 class Medicine {
 private:
@@ -37,12 +38,13 @@ public:
     void setExpirationDate(std::string expirationDate);
 
     bool isValidDate() const;
-    bool isExpired() const; 
+    bool isExpired() const;
 
     virtual double calculateFinalPrice() const;
 
-    virtual ~Medicine() = default;
+    friend std::ostream& operator<<(std::ostream& out, const Medicine& medicine);
 
+    virtual ~Medicine() = default;
 };
 
 #endif

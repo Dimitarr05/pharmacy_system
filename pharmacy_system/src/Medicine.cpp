@@ -180,3 +180,14 @@ bool Medicine::isExpired() const {
 
     return false;
 }
+
+std::ostream& operator<<(std::ostream& out, const Medicine& medicine) {
+    out << "Name: " << medicine.name << std::endl;
+    out << "Manufacturer: " << medicine.manufacturer << std::endl;
+    out << "Batch number: " << medicine.batchNumber << std::endl;
+    out << "Price: " << medicine.calculateFinalPrice() << " EUR" << std::endl;
+    out << "Quantity: " << medicine.quantity << std::endl;
+    out << "Expiration date: " << medicine.expirationDate << std::endl;
+
+    return out;
+}
