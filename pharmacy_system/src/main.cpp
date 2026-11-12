@@ -33,13 +33,15 @@ int main() {
     pharmacy.displayMedicines();
 
     std::cout << "\nSearching for Paracetamol:\n";
-
     pharmacy.searchMedicine("Paracetamol");
 
     std::cout << "\nRemoving Paracetamol..\n";
-
     pharmacy.removeMedicine("Paracetamol");
+    pharmacy.displayMedicines();
 
+    std::cout << "\nSelling Paracetamol:\n";
+    pharmacy.sellMedicine("Paracetamol", 5);
+    std::cout << "\nUpdated inventory:\n";
     pharmacy.displayMedicines();
 
     delete medicine1;

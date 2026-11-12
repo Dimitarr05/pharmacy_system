@@ -51,3 +51,41 @@ void PharmacyManager::removeMedicine(std::string name) {
 }
 
 
+void PharmacyManager::sellMedicine(std::string name, int quantity) {
+    for (int i = 0; i < medicines.size(); i++) {
+        if (medicines[i]->getName() == name) {
+
+            if (medicines[i]->isExpired()) {
+                std::cout << "Cannot sell expired medicine!" << std::endl;
+                return;
+            }
+
+            if (quantity <= 0) {
+                std::cout << "Invalid quantity!" << std::endl;
+                return;
+            }
+
+            if (medicines[i]->getQuantity() < quantity) {
+                std::cout << "Not enough medicine in stock!" << std::endl;
+                return;
+            }
+
+            medicines[i]->setQuantity(
+                medicines[i]->getQuantity() - quantity
+            );
+
+            double totalPrice =
+                medicines[i]->calculateFinalPrice() * quantity;
+
+            std::cout << "Sale completed successfully!" << std::endl;
+            std::cout << "Medicine: " << name << std::endl;
+            std::cout << "Quantity sold: " << quantity << std::endl;
+            std::cout << "Total price: " << totalPrice << " EUR" << std::endl;
+
+            return;
+        }
+    }
+
+    std::cout << "Medicine not found!" << std::endl;
+}
+

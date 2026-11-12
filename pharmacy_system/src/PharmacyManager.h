@@ -13,6 +13,7 @@ public:
     void displayMedicines() const;
     void removeMedicine(std::string name);
     void searchMedicine(std::string name) const;
+    void sellMedicine(std::string name, int quantity);
 };
 
 #endif
