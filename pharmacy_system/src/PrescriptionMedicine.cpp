@@ -1,4 +1,5 @@
 #include "PrescriptionMedicine.h"
+#include <stdexcept>
 
 PrescriptionMedicine::PrescriptionMedicine()
     : Medicine(),
@@ -27,6 +28,22 @@ std::string PrescriptionMedicine::getPrescriptionCode() const {
 
 std::string PrescriptionMedicine::getDoctorName() const {
     return doctorName;
+}
+
+void PrescriptionMedicine::setPrescriptionCode(std::string prescriptionCode) {
+    if (prescriptionCode.empty()) {
+        throw std::invalid_argument("Prescription code cannot be empty!");
+    }
+
+    this->prescriptionCode = prescriptionCode;
+}
+
+void PrescriptionMedicine::setDoctorName(std::string doctorName) {
+    if (doctorName.empty()) {
+        throw std::invalid_argument("Doctor name cannot be empty!");
+    }
+
+    this->doctorName = doctorName;
 }
 
 double PrescriptionMedicine::calculateFinalPrice() const {

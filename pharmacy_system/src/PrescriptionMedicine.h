@@ -24,6 +24,9 @@ public:
     std::string getPrescriptionCode() const;
     std::string getDoctorName() const;
 
+    void setPrescriptionCode(std::string prescriptionCode);
+    void setDoctorName(std::string doctorName);
+
     double calculateFinalPrice() const override;
 };
 
