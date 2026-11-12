@@ -8,6 +8,7 @@
 class PharmacyManager {
 private:
     std::vector<Medicine*> medicines;
+    std::vector<Receipt> salesHistory;
 
 public:
     PharmacyManager();
@@ -20,6 +21,9 @@ public:
     void removeMedicine(std::string name);
     void searchMedicine(std::string name) const;
     void sellMedicine(std::string name, int quantity, std::string prescriptionCode = "");
+
+    void saveMedicines() const;
+    void loadMedicines();
 };
 
 #endif

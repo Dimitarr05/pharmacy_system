@@ -7,28 +7,7 @@
 int main() {
     PharmacyManager pharmacy;
 
-    OTC_Medicine* medicine1 = new OTC_Medicine(
-        "Paracetamol",
-        "Sopharma",
-        "BATCH001",
-        5.50,
-        100,
-        "05-11-2027"
-    );
-
-    PrescriptionMedicine* medicine2 = new PrescriptionMedicine(
-        "Voltaren",
-        "Sopharma",
-        "BATCH002",
-        12.50,
-        50,
-        "10-12-2027",
-        "RX001",
-        "Dr. Ivanov"
-    );
-
-    pharmacy.addMedicine(medicine1);
-    pharmacy.addMedicine(medicine2);
+    pharmacy.loadMedicines();
 
     pharmacy.displayMedicines();
 
@@ -46,6 +25,9 @@ int main() {
     pharmacy.sellMedicine("Paracetamol", 5);
     pharmacy.sellMedicine("Voltaren", 2, "RX001");
     pharmacy.sellMedicine("Voltaren", 2, "wrong code");
+
+    pharmacy.saveMedicines();
+    pharmacy.displayMedicines();
 
     return 0;
 }
