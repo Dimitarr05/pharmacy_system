@@ -304,3 +304,14 @@ void PharmacyManager::loadSalesHistory() {
 
     std::cout << "Sales history loaded successfully!" << std::endl;
 }
+
+void PharmacyManager::displaySalesHistory() const {
+    if (salesHistory.empty()) {
+        std::cout << "No sales history available!" << std::endl;
+        return;
+    }
+
+    for (size_t i = 0; i < salesHistory.size(); i++) {
+        std::cout << salesHistory[i] << std::endl;
+    }
+}

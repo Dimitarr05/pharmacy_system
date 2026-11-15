@@ -30,6 +30,7 @@ public:
 
     void saveSalesHistory() const;
     void loadSalesHistory();
+    void displaySalesHistory() const;
 };
 
 #endif
