@@ -6,6 +6,7 @@
 #include <limits>
 #include <filesystem>
 #include <cctype>
+#include <stdexcept>
 
 PharmacyManager::PharmacyManager() {
 }
@@ -24,20 +25,87 @@ PharmacyManager::~PharmacyManager() {
     medicines.clear();
 }
 
+
 void PharmacyManager::addMedicine(Medicine* medicine) {
-    if (medicine != nullptr) {
-        medicines.push_back(medicine);
+    if (medicine == nullptr) {
+        return;
     }
+
+    if (medicine->getBatchNumber().empty()) {
+        delete medicine;
+        throw std::invalid_argument("Batch number cannot be empty!");
+    }
+
+    for (size_t i = 0; i < medicines.size(); i++) {
+        if (medicines[i]->getBatchNumber() == medicine->getBatchNumber()) {
+            delete medicine;
+            throw std::invalid_argument("Batch number already exists!");
+        }
+    }
+
+    if (medicine->isExpired()) {
+        delete medicine;
+        throw std::invalid_argument("Cannot add expired medicine!");
+    }
+
+    PrescriptionMedicine* prescriptionMedicine =
+        dynamic_cast<PrescriptionMedicine*>(medicine);
+
+    if (prescriptionMedicine != nullptr) {
+        std::string code = prescriptionMedicine->getPrescriptionCode();
+
+        if (code.length() < 5 || code.substr(0, 2) != "RX") {
+            delete medicine;
+            throw std::invalid_argument("Invalid prescription code!");
+        }
+
+        for (size_t i = 2; i < code.length(); i++) {
+            if (!std::isdigit(static_cast<unsigned char>(code[i]))) {
+                delete medicine;
+                throw std::invalid_argument("Invalid prescription code!");
+            }
+        }
+
+        if (prescriptionMedicine->getDoctorName().empty()) {
+            delete medicine;
+            throw std::invalid_argument("Doctor name cannot be empty!");
+        }
+    }
+
+    medicines.push_back(medicine);
+
+    std::cout << "Medicine added successfully!" << std::endl;
 }
 
+
 void PharmacyManager::displayMedicines() const {
+    if (medicines.empty()) {
+        std::cout << "No medicines available!" << std::endl;
+        return;
+    }
+
     for (int i = 0; i < medicines.size(); i++) {
+
         std::cout << "Name: " << medicines[i]->getName() << std::endl;
         std::cout << "Manufacturer: " << medicines[i]->getManufacturer() << std::endl;
+        std::cout << "Batch number: " << medicines[i]->getBatchNumber() << std::endl;
         std::cout << "Price: " << medicines[i]->calculateFinalPrice() << " EUR" << std::endl;
         std::cout << "Quantity: " << medicines[i]->getQuantity() << std::endl;
         std::cout << "Expiration date: " << medicines[i]->getExpirationDate() << std::endl;
-        std::cout << "-------" << std::endl;
+        std::cout << "Type: ";
+
+        if (dynamic_cast<OTC_Medicine*>(medicines[i]) != nullptr) {
+            std::cout << "OTC" << std::endl;
+        }
+        else if (dynamic_cast<PrescriptionMedicine*>(medicines[i]) != nullptr) {
+            std::cout << "Prescription" << std::endl;
+        }
+
+        if (medicines[i]->isExpired()) {
+            std::cout << "STATUS: EXPIRED!" << std::endl;
+        }
+
+        std::cout << "-----------------------------" << std::endl;
     }
 }
 
@@ -48,8 +116,15 @@ void PharmacyManager::searchMedicine(std::string name) const {
         if (medicines[i]->getName() == name) {
             std::cout << "Medicine found!" << std::endl;
             std::cout << "Name: " << medicines[i]->getName() << std::endl;
+            std::cout << "Manufacturer: " << medicines[i]->getManufacturer() << std::endl;
+            std::cout << "Batch number: " << medicines[i]->getBatchNumber() << std::endl;
             std::cout << "Price: " << medicines[i]->calculateFinalPrice() << " EUR" << std::endl;
             std::cout << "Quantity: " << medicines[i]->getQuantity() << std::endl;
+            std::cout << "Expiration date: " << medicines[i]->getExpirationDate() << std::endl;
+
+            if (medicines[i]->isExpired()) {
+                std::cout << "STATUS: EXPIRED!" << std::endl;
+            }
 
             found = true;
         }
@@ -60,9 +135,9 @@ void PharmacyManager::searchMedicine(std::string name) const {
     }
 }
 
-void PharmacyManager::removeMedicine(std::string name) {
+void PharmacyManager::removeMedicine(std::string batchNumber) {
     for (int i = 0; i < medicines.size(); i++) {
-        if (medicines[i]->getName() == name) {
+        if (medicines[i]->getBatchNumber() == batchNumber) {
             delete medicines[i];
 
             medicines.erase(medicines.begin() + i);

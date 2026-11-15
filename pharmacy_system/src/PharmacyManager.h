@@ -21,7 +21,7 @@ public:
 
     void addMedicine(Medicine* medicine);
     void displayMedicines() const;
-    void removeMedicine(std::string name);
+    void removeMedicine(std::string batchNumber);
     void searchMedicine(std::string name) const;
     void sellMedicine(std::string batchNumber, int quantity, std::string prescriptionCode = "");
 
