@@ -4,6 +4,7 @@
 #include "OTC_Medicine.h"
 #include <fstream>
 #include <limits>
+#include <filesystem>
 
 PharmacyManager::PharmacyManager() {
 }
@@ -121,6 +122,7 @@ void PharmacyManager::sellMedicine(std::string name, int quantity, std::string p
 
 
 void PharmacyManager::saveMedicines() const {
+    std::filesystem::create_directories("data");
     std::ofstream file("data/medicines.txt");
 
     if (!file.is_open()) {
@@ -239,6 +241,7 @@ void PharmacyManager::loadMedicines() {
 }
 
 void PharmacyManager::saveSalesHistory() const {
+    std::filesystem::create_directories("data");
     std::ofstream file("data/sales.txt");
 
     if (!file.is_open()) {
