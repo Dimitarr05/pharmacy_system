@@ -5,6 +5,7 @@
 #include <fstream>
 #include <limits>
 #include <filesystem>
+#include <cctype>
 
 PharmacyManager::PharmacyManager() {
 }
@@ -74,9 +75,9 @@ void PharmacyManager::removeMedicine(std::string name) {
     std::cout << "Medicine not found!" << std::endl;
 }
 
-void PharmacyManager::sellMedicine(std::string name, int quantity, std::string prescriptionCode) {
+void PharmacyManager::sellMedicine(std::string batchNumber, int quantity, std::string prescriptionCode) {
     for (int i = 0; i < medicines.size(); i++) {
-        if (medicines[i]->getName() == name) {
+        if (medicines[i]->getBatchNumber() == batchNumber) {
 
             if (medicines[i]->isExpired()) {
                 std::cout << "Cannot sell expired medicine!" << std::endl;
@@ -97,6 +98,20 @@ void PharmacyManager::sellMedicine(std::string name, int quantity, std::string p
                 dynamic_cast<PrescriptionMedicine*>(medicines[i]);
 
             if (prescriptionMedicine != nullptr) {
+
+                if (prescriptionCode.length() < 5 ||
+                    prescriptionCode.substr(0, 2) != "RX") {
+                    std::cout << "Invalid prescription code format!" << std::endl;
+                    return;
+                }
+
+                for (int i = 2; i < prescriptionCode.length(); i++) {
+                    if (!isdigit(prescriptionCode[i])) {
+                        std::cout << "Invalid prescription code format!" << std::endl;
+                        return;
+                    }
+                }
+
                 if (prescriptionCode != prescriptionMedicine->getPrescriptionCode()) {
                     std::cout << "Invalid prescription code!" << std::endl;
                     return;
@@ -109,7 +124,7 @@ void PharmacyManager::sellMedicine(std::string name, int quantity, std::string p
                 medicines[i]->getQuantity() - quantity
             );
 
-            Receipt receipt(name, quantity, unitPrice);
+            Receipt receipt(medicines[i]->getName(), quantity, unitPrice);
             salesHistory.push_back(receipt);
             receipt.displayReceipt();
 

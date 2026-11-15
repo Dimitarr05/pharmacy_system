@@ -23,9 +23,9 @@ int main() {
     // pharmacy.sellMedicine("Paracetamol", 5);
     // std::cout << "\nUpdated inventory:\n";
     // pharmacy.displayMedicines();
-    pharmacy.sellMedicine("Paracetamol", 5);
-    pharmacy.sellMedicine("Voltaren", 2, "RX001");
-    pharmacy.sellMedicine("Voltaren", 2, "wrong code");
+    pharmacy.sellMedicine("BATCH001", 5);
+    pharmacy.sellMedicine("BATCH002", 2, "RX001");
+    pharmacy.sellMedicine("BATCH002", 2, "wrong code");
 
     pharmacy.saveMedicines();
     pharmacy.saveSalesHistory();
