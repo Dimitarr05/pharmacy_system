@@ -15,6 +15,7 @@ public:
                  std::string expirationDate);
 
     double calculateFinalPrice() const override;
+    void print(std::ostream& out) const override;
 };
 
 #endif

@@ -49,3 +49,10 @@ void PrescriptionMedicine::setDoctorName(std::string doctorName) {
 double PrescriptionMedicine::calculateFinalPrice() const {
     return getPrice() + 1.0; // 1 EUR surcharge for prescription medicines
 }
+
+void PrescriptionMedicine::print(std::ostream& out) const {
+    Medicine::print(out);
+    out << "Type: Prescription" << std::endl;
+    out << "Prescription code: " << prescriptionCode << std::endl;
+    out << "Doctor: " << doctorName << std::endl;
+}

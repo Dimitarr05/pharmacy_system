@@ -28,6 +28,7 @@ public:
     void setDoctorName(std::string doctorName);
 
     double calculateFinalPrice() const override;
+    void print(std::ostream& out) const override;
 };
 
 #endif

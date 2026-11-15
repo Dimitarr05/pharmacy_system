@@ -181,13 +181,20 @@ bool Medicine::isExpired() const {
     return false;
 }
 
-std::ostream& operator<<(std::ostream& out, const Medicine& medicine) {
-    out << "Name: " << medicine.name << std::endl;
-    out << "Manufacturer: " << medicine.manufacturer << std::endl;
-    out << "Batch number: " << medicine.batchNumber << std::endl;
-    out << "Price: " << medicine.calculateFinalPrice() << " EUR" << std::endl;
-    out << "Quantity: " << medicine.quantity << std::endl;
-    out << "Expiration date: " << medicine.expirationDate << std::endl;
+void Medicine::print(std::ostream& out) const {
+    out << "Name: " << name << std::endl;
+    out << "Manufacturer: " << manufacturer << std::endl;
+    out << "Batch number: " << batchNumber << std::endl;
+    out << "Price: " << calculateFinalPrice() << " EUR" << std::endl;
+    out << "Quantity: " << quantity << std::endl;
+    out << "Expiration date: " << expirationDate << std::endl;
+}
 
+std::ostream& operator<<(std::ostream& out, const Medicine& medicine) {
+    medicine.print(out);
+
+    if (medicine.isExpired()) {
+        out << "STATUS: EXPIRED!" << std::endl;
+    }
     return out;
 }

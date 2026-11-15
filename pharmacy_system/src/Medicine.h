@@ -42,6 +42,8 @@ public:
 
     virtual double calculateFinalPrice() const;
 
+    virtual void print(std::ostream& out) const;
+    
     friend std::ostream& operator<<(std::ostream& out, const Medicine& medicine);
 
     virtual ~Medicine() = default;

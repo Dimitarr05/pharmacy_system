@@ -18,7 +18,7 @@ PharmacyManager::PharmacyManager(Medicine* medicine) {
 }
 
 PharmacyManager::~PharmacyManager() {
-    for (int i = 0; i < medicines.size(); i++) {
+    for (size_t i = 0; i < medicines.size(); i++) {
         delete medicines[i];
     }
 
@@ -84,26 +84,8 @@ void PharmacyManager::displayMedicines() const {
         return;
     }
 
-    for (int i = 0; i < medicines.size(); i++) {
-
-        std::cout << "Name: " << medicines[i]->getName() << std::endl;
-        std::cout << "Manufacturer: " << medicines[i]->getManufacturer() << std::endl;
-        std::cout << "Batch number: " << medicines[i]->getBatchNumber() << std::endl;
-        std::cout << "Price: " << medicines[i]->calculateFinalPrice() << " EUR" << std::endl;
-        std::cout << "Quantity: " << medicines[i]->getQuantity() << std::endl;
-        std::cout << "Expiration date: " << medicines[i]->getExpirationDate() << std::endl;
-        std::cout << "Type: ";
-
-        if (dynamic_cast<OTC_Medicine*>(medicines[i]) != nullptr) {
-            std::cout << "OTC" << std::endl;
-        }
-        else if (dynamic_cast<PrescriptionMedicine*>(medicines[i]) != nullptr) {
-            std::cout << "Prescription" << std::endl;
-        }
-
-        if (medicines[i]->isExpired()) {
-            std::cout << "STATUS: EXPIRED!" << std::endl;
-        }
+    for (size_t i = 0; i < medicines.size(); i++) {
+        std::cout << *medicines[i];
 
         std::cout << "-----------------------------" << std::endl;
     }
@@ -112,19 +94,11 @@ void PharmacyManager::displayMedicines() const {
 void PharmacyManager::searchMedicine(std::string name) const {
     bool found = false;
 
-    for (int i = 0; i < medicines.size(); i++) {
+    for (size_t i = 0; i < medicines.size(); i++) {
         if (medicines[i]->getName() == name) {
             std::cout << "Medicine found!" << std::endl;
-            std::cout << "Name: " << medicines[i]->getName() << std::endl;
-            std::cout << "Manufacturer: " << medicines[i]->getManufacturer() << std::endl;
-            std::cout << "Batch number: " << medicines[i]->getBatchNumber() << std::endl;
-            std::cout << "Price: " << medicines[i]->calculateFinalPrice() << " EUR" << std::endl;
-            std::cout << "Quantity: " << medicines[i]->getQuantity() << std::endl;
-            std::cout << "Expiration date: " << medicines[i]->getExpirationDate() << std::endl;
-
-            if (medicines[i]->isExpired()) {
-                std::cout << "STATUS: EXPIRED!" << std::endl;
-            }
+            std::cout << *medicines[i];
+            std::cout << "-----------------------------" << std::endl;
 
             found = true;
         }
@@ -136,7 +110,7 @@ void PharmacyManager::searchMedicine(std::string name) const {
 }
 
 void PharmacyManager::removeMedicine(std::string batchNumber) {
-    for (int i = 0; i < medicines.size(); i++) {
+    for (size_t i = 0; i < medicines.size(); i++) {
         if (medicines[i]->getBatchNumber() == batchNumber) {
             delete medicines[i];
 
@@ -151,7 +125,7 @@ void PharmacyManager::removeMedicine(std::string batchNumber) {
 }
 
 void PharmacyManager::sellMedicine(std::string batchNumber, int quantity, std::string prescriptionCode) {
-    for (int i = 0; i < medicines.size(); i++) {
+    for (size_t i = 0; i < medicines.size(); i++) {
         if (medicines[i]->getBatchNumber() == batchNumber) {
 
             if (medicines[i]->isExpired()) {
@@ -180,8 +154,8 @@ void PharmacyManager::sellMedicine(std::string batchNumber, int quantity, std::s
                     return;
                 }
 
-                for (int i = 2; i < prescriptionCode.length(); i++) {
-                    if (!isdigit(prescriptionCode[i])) {
+                for (int j = 2; j < prescriptionCode.length(); j++) {
+                    if (!isdigit(prescriptionCode[j])) {
                         std::cout << "Invalid prescription code format!" << std::endl;
                         return;
                     }
@@ -220,7 +194,7 @@ void PharmacyManager::saveMedicines() const {
         return;
     }
 
-    for (int i = 0; i < medicines.size(); i++) {
+    for (size_t i = 0; i < medicines.size(); i++) {
         file << medicines[i]->getName() << std::endl;
         file << medicines[i]->getManufacturer() << std::endl;
         file << medicines[i]->getBatchNumber() << std::endl;
@@ -254,7 +228,7 @@ void PharmacyManager::loadMedicines() {
         return;
     }
 
-    for (int i = 0; i < medicines.size(); i++) {
+    for (size_t i = 0; i < medicines.size(); i++) {
         delete medicines[i];
     }
 
@@ -339,7 +313,7 @@ void PharmacyManager::saveSalesHistory() const {
         return;
     }
 
-    for (int i = 0; i < salesHistory.size(); i++) {
+    for (size_t i = 0; i < salesHistory.size(); i++) {
         file << salesHistory[i].getMedicineName() << std::endl;
         file << salesHistory[i].getQuantity() << std::endl;
         file << salesHistory[i].getUnitPrice() << std::endl;

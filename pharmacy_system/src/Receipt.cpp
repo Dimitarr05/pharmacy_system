@@ -1,4 +1,3 @@
-
 #include "Receipt.h"
 #include <iostream>
 #include <stdexcept>

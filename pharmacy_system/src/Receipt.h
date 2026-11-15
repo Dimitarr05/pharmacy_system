@@ -1,6 +1,6 @@
 #ifndef RECEIPT_H
 #define RECEIPT_H
-
+#include <ostream>
 #include <string>
 
 class Receipt {
