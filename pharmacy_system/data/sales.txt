@@ -4,3 +4,9 @@ Paracetamol
 Voltaren
 2
 12.5
+Paracetamol
+5
+5.225
+Voltaren
+2
+13.5

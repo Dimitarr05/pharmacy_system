@@ -16,6 +16,9 @@ public:
 
     ~PharmacyManager();
 
+    PharmacyManager(const PharmacyManager&) = delete;
+    PharmacyManager& operator=(const PharmacyManager&) = delete;
+
     void addMedicine(Medicine* medicine);
     void displayMedicines() const;
     void removeMedicine(std::string name);
