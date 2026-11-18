@@ -154,7 +154,7 @@ void PharmacyManager::sellMedicine(std::string batchNumber, int quantity, std::s
                     return;
                 }
 
-                for (int j = 2; j < prescriptionCode.length(); j++) {
+                for (size_t j = 2; j < prescriptionCode.length(); j++) {
                     if (!isdigit(prescriptionCode[j])) {
                         std::cout << "Invalid prescription code format!" << std::endl;
                         return;
